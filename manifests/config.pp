@@ -18,7 +18,7 @@ class pureftpd::config {
         ensure  => present,
         owner   => root,
         group   => root,
-        content => template("${module_name}/default_config.erb"),
+        content => template($pureftpd::config_template),
         require => Class['pureftpd::install'],
         notify  => Class['pureftpd::service'],
     }
