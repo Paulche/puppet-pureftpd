@@ -118,7 +118,11 @@ Puppet::Type.type(:pureftpd_user).provide(:puredb) do
   end
 
   def exists?
-    !!pure_pw(:list).split("\n").map { |el| el.split(/\s+/).first }.detect { |el| el.strip == @resource[:name] }
+    if File.exist?('/etc/pure-ftpd/pureftpd.passwd')
+      !!pure_pw(:list).split("\n").map { |el| el.split(/\s+/).first }.detect { |el| el.strip == @resource[:name] }
+    else
+      false
+    end
   end
 
   def flush
