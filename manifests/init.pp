@@ -15,10 +15,13 @@ class pureftpd (
       $auth_type = undef,
       $config_source = undef,
       $virtualchroot = false,
-      $config_template = undef
+      $config_template = undef,
+      $repository = undef
     )
     {
-	    include pureftpd::params, pureftpd::install, pureftpd::config, pureftpd::service
+	    include pureftpd::params, pureftpd::config, pureftpd::service
 
-
+      class { 'pureftpd::install':
+        repository => $repository,
+      }
     }
